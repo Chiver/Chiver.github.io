@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;example.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
+<meta name="description" content="Nominated Algorithms 衰分术曰：各置列衰，副并为法，以所分乘未并者各自为实，实如法而一。不满法者，以法命之。 「九章算术」  [4-Hard] Median of Tow Sorted ArraysGiven two sorted arrays nums1 and nums2 of size m and n respectively, return the median of">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Malicious Algorithm Questions">
+<meta property="og:url" content="http://example.com/2021/01/04/Malicious-Algorithm-Questions/index.html">
+<meta property="og:site_name" content="域">
+<meta property="og:description" content="Nominated Algorithms 衰分术曰：各置列衰，副并为法，以所分乘未并者各自为实，实如法而一。不满法者，以法命之。 「九章算术」  [4-Hard] Median of Tow Sorted ArraysGiven two sorted arrays nums1 and nums2 of size m and n respectively, return the median of">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-04T15:28:08.000Z">
+<meta property="article:modified_time" content="2021-03-26T12:29:20.803Z">
+<meta property="article:author" content="Zipiao (Chiev) Wan">
+<meta property="article:tag" content="Algorithms">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/01/04/Malicious-Algorithm-Questions/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;01&#x2F;04&#x2F;Malicious-Algorithm-Questions&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;01&#x2F;04&#x2F;Malicious-Algorithm-Questions&#x2F;&quot;,&quot;title&quot;:&quot;Malicious Algorithm Questions&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Malicious Algorithm Questions | 域</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">域</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">山僻景幽 云深境寂</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nominated-Algorithms"><span class="nav-number">1.</span> <span class="nav-text">Nominated Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.0.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Hard-Median-of-Tow-Sorted-Arrays"><span class="nav-number">1.0.2.</span> <span class="nav-text">[4-Hard] Median of Tow Sorted Arrays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Medium-Longest-Substring-Without-Repeating-Characters"><span class="nav-number">1.0.3.</span> <span class="nav-text">[3-Medium] Longest Substring Without Repeating Characters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#76-Hard-Minimum-Window-Substring"><span class="nav-number">1.0.4.</span> <span class="nav-text">[76-Hard] Minimum Window Substring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#567-Medium-Permutation-in-String"><span class="nav-number">1.0.5.</span> <span class="nav-text">[567-Medium] Permutation in String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#438-Medium-Find-All-Anagrams-in-a-String"><span class="nav-number">1.0.6.</span> <span class="nav-text">[438-Medium] Find All Anagrams in a String</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zipiao (Chiev) Wan</p>
+  <div class="site-description" itemprop="description">Chiev's Realm of Ideas</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Chiver" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Chiver" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/04/Malicious-Algorithm-Questions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zipiao (Chiev) Wan">
+      <meta itemprop="description" content="Chiev's Realm of Ideas">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="域">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Malicious Algorithm Questions
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-01-04 23:28:08" itemprop="dateCreated datePublished" datetime="2021-01-04T23:28:08+08:00">2021-01-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-03-26 20:29:20" itemprop="dateModified" datetime="2021-03-26T20:29:20+08:00">2021-03-26</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Nominated-Algorithms"><a href="#Nominated-Algorithms" class="headerlink" title="Nominated Algorithms"></a>Nominated Algorithms</h1><blockquote>
+<p>衰分术曰：各置列衰，副并为法，以所分乘未并者各自为实，实如法而一。不满法者，以法命之。</p>
+<p>「九章算术」</p>
+</blockquote>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="4-Hard-Median-of-Tow-Sorted-Arrays"><a href="#4-Hard-Median-of-Tow-Sorted-Arrays" class="headerlink" title="[4-Hard] Median of Tow Sorted Arrays"></a>[4-Hard] Median of Tow Sorted Arrays</h3><p>Given two sorted arrays <code>nums1</code> and <code>nums2</code> of size <code>m</code> and <code>n</code> respectively, return <strong>the median</strong> of the two sorted arrays. </p>
+<p>Require that the time complexity as <code>O(log(m+n))</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [1,3], nums2 &#x3D; [2]</span><br><span class="line">Output: 2.00000</span><br><span class="line">Explanation: merged array &#x3D; [1,2,3] and median is 2.</span><br></pre></td></tr></table></figure>
+<p><strong>Solution:</strong></p>
+<p>Make the shorter array as the one to perform <strong>binary search</strong>. The central idea of this algorithm is that we can pre-calculate the total length of the sum of the upper left half and the lower left half of the arrays, which is <code>(m+n+1)//2</code>. And then, performing binary search on the upper (shorter) array to calculate the corresponding length of the lower index by <code>(m+n+1)//2 - upper_index</code>, where the <code>upper_index</code> is the index of the binary search. For termination, we want to seek for the fulfillment of the following invariant: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">For: </span><br><span class="line">UpperLeft :: ul | ur :: UpperRight</span><br><span class="line">LowerLeft :: ll | lr :: LowerRight</span><br><span class="line">We have: </span><br><span class="line">ul &lt; lr and ll &lt; ur</span><br></pre></td></tr></table></figure>
+<p>In this case, we know that we’ve found the solution, and all we need is to deal with the edge cases. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span>(<span class="params">self, nums1: List[<span class="built_in">int</span>], nums2: List[<span class="built_in">int</span>]</span>) -&gt; float:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums1) &gt; <span class="built_in">len</span>(nums2): </span><br><span class="line">            <span class="keyword">return</span> self.findMedianSortedArrays(nums2, nums1) </span><br><span class="line">        </span><br><span class="line">       	m = <span class="built_in">len</span>(nums1) </span><br><span class="line">        n = <span class="built_in">len</span>(nums2) </span><br><span class="line">        totalLeftSize = (m+n+<span class="number">1</span>) // <span class="number">2</span> <span class="comment"># Good for rounding for both odd and even cases</span></span><br><span class="line">        left = <span class="number">0</span> </span><br><span class="line">        right = m </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Binary Search </span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right: </span><br><span class="line">            i = left + (right-left) // <span class="number">2</span> </span><br><span class="line">            j = totalLeftSize - i </span><br><span class="line">            </span><br><span class="line">            <span class="string">&#x27;&#x27;&#x27; Search scope move to the right since the lower left element </span></span><br><span class="line"><span class="string">            is greater than the upper right element</span></span><br><span class="line"><span class="string">            &#x27;&#x27;&#x27;</span></span><br><span class="line">            <span class="keyword">if</span> nums2[j-<span class="number">1</span>] &gt; nums1[i]: </span><br><span class="line">                left = i+<span class="number">1</span> </span><br><span class="line">            <span class="string">&#x27;&#x27;&#x27; Search scope move to the left, but it could be caused by both </span></span><br><span class="line"><span class="string">            the upper left is greater than the lower right, or just </span></span><br><span class="line"><span class="string">            &#x27;&#x27;&#x27;</span></span><br><span class="line">            <span class="keyword">else</span>: </span><br><span class="line">                right = i </span><br><span class="line">        i = left </span><br><span class="line">        j = totalLeftSize - i </span><br><span class="line">        upLeftMax = nums1[i-<span class="number">1</span>] <span class="keyword">if</span> i != <span class="number">0</span> <span class="keyword">else</span> <span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>) </span><br><span class="line">        upRightMin = nums1[i] <span class="keyword">if</span> i != m <span class="keyword">else</span> <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>) </span><br><span class="line">        downLeftMax = nums2[j-<span class="number">1</span>] <span class="keyword">if</span> j != <span class="number">0</span> <span class="keyword">else</span> <span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>) </span><br><span class="line">        downRightMin = nums2[j] <span class="keyword">if</span> j != n <span class="keyword">else</span> <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>) </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (m+n) % <span class="number">2</span> == <span class="number">0</span>: </span><br><span class="line">            <span class="keyword">return</span> (<span class="built_in">max</span>(upLeftMax, downLeftMax) + <span class="built_in">min</span>(upRightMin, downRightMin)) / <span class="number">2</span> </span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(upLeftMax, downLeftMax) </span><br></pre></td></tr></table></figure>
+<h3 id="3-Medium-Longest-Substring-Without-Repeating-Characters"><a href="#3-Medium-Longest-Substring-Without-Repeating-Characters" class="headerlink" title="[3-Medium] Longest Substring Without Repeating Characters"></a>[3-Medium] Longest Substring Without Repeating Characters</h3><p>Given a string <code>s</code>, find the length of the <strong>longest substring</strong> without repeating characters.</p>
+<p><u>Note that a substring must be consecutive, but a subsequence doesn’t.</u></p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;pwwkew&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;wke&quot;, with the length of 3.</span><br><span class="line">Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</span><br></pre></td></tr></table></figure>
+<p><strong>Solution:</strong><br>This question falls naturally into the realm of the sliding window solution, where we keep a left and right pointer and examine the current window. The scope of the window is <code>[left, right)</code>. </p>
+<p>For example: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pwwkew</span><br><span class="line">*</span><br><span class="line">pwwkew</span><br><span class="line">--</span><br><span class="line">pwwkew</span><br><span class="line">- -</span><br><span class="line">pwwkew</span><br><span class="line"> --</span><br><span class="line">pwwkew</span><br><span class="line">  * </span><br><span class="line">pwwkew</span><br><span class="line">  -- </span><br><span class="line">pwwkew</span><br><span class="line">  - - </span><br><span class="line">pwwkew</span><br><span class="line">  -  -</span><br><span class="line">pwwkew</span><br><span class="line">   - -</span><br><span class="line">pwwkew</span><br><span class="line">    -- </span><br><span class="line">pwwkew</span><br><span class="line">     * </span><br><span class="line">pwwkew</span><br><span class="line">     --</span><br><span class="line">&lt;Termination&gt; </span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; int:</span> </span><br><span class="line">        n = <span class="built_in">len</span>(s) </span><br><span class="line">        <span class="comment"># Core Variables</span></span><br><span class="line">        left = right = <span class="number">0</span> </span><br><span class="line">        window = <span class="built_in">set</span>() </span><br><span class="line">        maxLen = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> right &lt; n: </span><br><span class="line">            <span class="keyword">if</span> s[right] <span class="keyword">not</span> <span class="keyword">in</span> window: </span><br><span class="line">                <span class="comment"># Update Right Window</span></span><br><span class="line">                window.add(s[right]) </span><br><span class="line">                maxLen = <span class="built_in">max</span>(maxLen, <span class="built_in">len</span>(window))</span><br><span class="line">                right += <span class="number">1</span> </span><br><span class="line">            <span class="keyword">else</span>: </span><br><span class="line">                <span class="comment"># This will make the left index move to right and </span></span><br><span class="line">                <span class="comment"># remove all elements in the window, and start-off with </span></span><br><span class="line">                <span class="comment"># left, right at the same place at the duplicated value</span></span><br><span class="line">                <span class="comment"># This, in return, proves the termination of the algorithm</span></span><br><span class="line">                window.remove(s[left]) </span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> maxLen </span><br></pre></td></tr></table></figure>
+<h3 id="76-Hard-Minimum-Window-Substring"><a href="#76-Hard-Minimum-Window-Substring" class="headerlink" title="[76-Hard] Minimum Window Substring"></a>[76-Hard] Minimum Window Substring</h3><p>Given two strings <code>s</code> and <code>t</code>, return <em>the minimum window in <code>s</code> which will contain all the characters in <code>t</code></em>. If there is no such window in <code>s</code> that covers all characters in <code>t</code>, return <em>the empty string <code>&quot;&quot;</code></em>.</p>
+<p><strong>Note</strong> that If there is such a window, it is guaranteed that there will always be only one unique minimum window in <code>s</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;ADOBECODEBANC&quot;, t &#x3D; &quot;ABC&quot;</span><br><span class="line">Output: &quot;BANC&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>Solution:</strong><br>This is yet another sliding window question. Using the framework, we need to keep track of the following elements: </p>
+<ul>
+<li><code>left, right</code> pointers</li>
+<li><code>&quot;need&quot; mapping, &quot;window&quot; mapping</code> (where need mapping keeps track of the remaining element counts for the window to fulfill the requirement of <code>t</code>, and the window keeps track of all the counts in the window) </li>
+<li><code>valid</code> variable which keeps track of the number of the current fulfilled characters (this could also be derived from <code>need</code> but just a syntatic sugar that omits extra computation) </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minWindow</span>(<span class="params">self, s: <span class="built_in">str</span>, t: <span class="built_in">str</span></span>) -&gt; str:</span></span><br><span class="line">        window = <span class="built_in">dict</span>() </span><br><span class="line">        need = <span class="built_in">dict</span>() </span><br><span class="line">        <span class="keyword">for</span> st <span class="keyword">in</span> t: need[st] = <span class="number">1</span> <span class="keyword">if</span> st <span class="keyword">not</span> <span class="keyword">in</span> need <span class="keyword">else</span> need[st] + <span class="number">1</span> </span><br><span class="line">        </span><br><span class="line">        left = right = <span class="number">0</span> </span><br><span class="line">        valid = <span class="number">0</span></span><br><span class="line">        start, length = <span class="number">0</span>, <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        <span class="keyword">while</span> right &lt; <span class="built_in">len</span>(s): </span><br><span class="line">            rchar = s[right] </span><br><span class="line">            right += <span class="number">1</span> </span><br><span class="line">            </span><br><span class="line">            <span class="comment"># The current &#x27;rchar&#x27; is fulfilled </span></span><br><span class="line">            <span class="keyword">if</span> rchar <span class="keyword">in</span> need: </span><br><span class="line">                <span class="comment"># Update the window </span></span><br><span class="line">            	window[rchar] = <span class="number">1</span> <span class="keyword">if</span> rchar <span class="keyword">not</span> <span class="keyword">in</span> window <span class="keyword">else</span> window[rchar] + <span class="number">1</span></span><br><span class="line">                <span class="comment"># Check if that character is satisfied </span></span><br><span class="line">            	<span class="keyword">if</span> need[rchar] == window[rchar]: </span><br><span class="line">                	valid += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">while</span> valid == <span class="built_in">len</span>(need): <span class="comment"># Optimize the window </span></span><br><span class="line">                <span class="comment"># Update the best result  </span></span><br><span class="line">                <span class="keyword">if</span> right - left &lt; length: </span><br><span class="line">                    start = left </span><br><span class="line">                	length = right - left </span><br><span class="line">                    </span><br><span class="line">              	<span class="comment"># Shrink the left window pointer </span></span><br><span class="line">                lchar = s[left] </span><br><span class="line">                left += <span class="number">1</span> </span><br><span class="line">                <span class="keyword">if</span> lchar <span class="keyword">in</span> need: </span><br><span class="line">                    <span class="comment"># The lchar in window no longer satisfies the requirement </span></span><br><span class="line">                    <span class="keyword">if</span> window[lchar] == need[lchar]: </span><br><span class="line">                        valid -= <span class="number">1</span> </span><br><span class="line">                    window[lchar] -= <span class="number">1</span> </span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">if</span> length == <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>) <span class="keyword">else</span> s[start : start + length]  </span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+<h3 id="567-Medium-Permutation-in-String"><a href="#567-Medium-Permutation-in-String" class="headerlink" title="[567-Medium] Permutation in String"></a>[567-Medium] Permutation in String</h3><p>Given two strings <strong>s1</strong> and <strong>s2</strong>, write a function to return true if <strong>s2</strong> contains the permutation of <strong>s1</strong>. In other words, one of the first string’s permutations is the <strong>substring</strong> of the second string.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s1 &#x3D; &quot;ab&quot; s2 &#x3D; &quot;eidbaooo&quot;</span><br><span class="line">Output: True</span><br><span class="line">Explanation: s2 contains one permutation of s1 (&quot;ba&quot;).</span><br></pre></td></tr></table></figure>
+<p><strong>Solution:</strong></p>
+<p>This is yet another slide window question. We have the following steps: </p>
+<ol>
+<li>Move right pointer if : right &lt; Len(s2) </li>
+<li>Mode left pointer if : the current substring <code>[left, right)</code> contains the permutation </li>
+<li>Exit / Update condition: if <code>right-left == len(s1)</code> and <code>[left, right)</code> satisfies the permutation condition</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkInclusion</span>(<span class="params">self, s1: <span class="built_in">str</span>, s2: <span class="built_in">str</span></span>) -&gt; bool:</span> </span><br><span class="line">        need = <span class="built_in">dict</span>() </span><br><span class="line">        <span class="keyword">for</span> ss <span class="keyword">in</span> s1: need[ss] = <span class="number">1</span> <span class="keyword">if</span> ss <span class="keyword">not</span> <span class="keyword">in</span> need <span class="keyword">else</span> need[ss] + <span class="number">1</span> </span><br><span class="line">        window = <span class="built_in">dict</span>() <span class="comment"># only stores char in s1 for efficiency and succint </span></span><br><span class="line">        </span><br><span class="line">        left = right = <span class="number">0</span> </span><br><span class="line">        valid = <span class="number">0</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> right &lt; <span class="built_in">len</span>(s2): </span><br><span class="line">            rchar = s2[right] </span><br><span class="line">            right += <span class="number">1</span> </span><br><span class="line">            </span><br><span class="line">           	<span class="comment"># update window </span></span><br><span class="line">            <span class="keyword">if</span> rchar <span class="keyword">in</span> need: </span><br><span class="line">                window[rchar] = <span class="number">1</span> <span class="keyword">if</span> rchar <span class="keyword">not</span> <span class="keyword">in</span> window <span class="keyword">else</span> window[rchar] + <span class="number">1</span> </span><br><span class="line">                <span class="comment"># This char is satisfied </span></span><br><span class="line">                <span class="keyword">if</span> window[rchar] == need[rchar]: </span><br><span class="line">                    valid += <span class="number">1</span> </span><br><span class="line">            <span class="comment"># check if need to shrink left</span></span><br><span class="line">            <span class="keyword">while</span> valid == <span class="built_in">len</span>(need): </span><br><span class="line">                <span class="comment"># This is a valid permutation</span></span><br><span class="line">                <span class="keyword">if</span> right - left == <span class="built_in">len</span>(s1): </span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span> </span><br><span class="line">               	<span class="comment"># Update left </span></span><br><span class="line">                lchar = s2[left] </span><br><span class="line">                left += <span class="number">1</span> </span><br><span class="line">               	</span><br><span class="line">                <span class="keyword">if</span> lchar <span class="keyword">in</span> window <span class="keyword">and</span> window[lchar] &gt; <span class="number">0</span>: </span><br><span class="line">                    <span class="comment"># safe because elem in window is a subset of that in need </span></span><br><span class="line">                    <span class="keyword">if</span> window[lchar] == need[lchar]: </span><br><span class="line">                        valid -= <span class="number">1</span> </span><br><span class="line">                    window[lchar] -= <span class="number">1</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span> </span><br></pre></td></tr></table></figure>
+<h3 id="438-Medium-Find-All-Anagrams-in-a-String"><a href="#438-Medium-Find-All-Anagrams-in-a-String" class="headerlink" title="[438-Medium] Find All Anagrams in a String"></a>[438-Medium] Find All Anagrams in a String</h3><p>Given a string <strong>s</strong> and a <strong>non-empty</strong> string <strong>p</strong>, find all the start indices of <strong>p</strong>‘s anagrams in <strong>s</strong>.</p>
+<p>Strings consists of lowercase English letters only and the length of both strings <strong>s</strong> and <strong>p</strong> will not be larger than 20,100.</p>
+<p>The order of output does not matter.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">s: &quot;cbaebabacd&quot; p: &quot;abc&quot;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[0, 6]</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">The substring with start index &#x3D; 0 is &quot;cba&quot;, which is an anagram of &quot;abc&quot;.</span><br><span class="line">The substring with start index &#x3D; 6 is &quot;bac&quot;, which is an anagram of &quot;abc&quot;.</span><br></pre></td></tr></table></figure>
+<p><strong>Solution:</strong></p>
+<p>Sliding Window general solution panel. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findAnagrams</span>(<span class="params">self, s: <span class="built_in">str</span>, p: <span class="built_in">str</span></span>) -&gt; List[int]:</span></span><br><span class="line">        <span class="comment"># Core Variables </span></span><br><span class="line">        need = <span class="built_in">dict</span>() </span><br><span class="line">        <span class="keyword">for</span> ss <span class="keyword">in</span> p: need[ss] = <span class="number">1</span> <span class="keyword">if</span> ss <span class="keyword">not</span> <span class="keyword">in</span> need <span class="keyword">else</span> need[ss]+<span class="number">1</span> </span><br><span class="line">        window = <span class="built_in">dict</span>() </span><br><span class="line">        result = [] </span><br><span class="line">        left = right = <span class="number">0</span> </span><br><span class="line">        valid = <span class="number">0</span> </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Main loooop</span></span><br><span class="line">        <span class="keyword">while</span> right &lt; <span class="built_in">len</span>(s):</span><br><span class="line">            rchar = s[right] </span><br><span class="line">            right += <span class="number">1</span> </span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Current char not in anagram, skip</span></span><br><span class="line">            <span class="keyword">if</span> rchar <span class="keyword">not</span> <span class="keyword">in</span> need: </span><br><span class="line">                left = right </span><br><span class="line">                valid = <span class="number">0</span> </span><br><span class="line">                window = <span class="built_in">dict</span>() </span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># Current char in need, update</span></span><br><span class="line">            window[rchar] = <span class="number">1</span> <span class="keyword">if</span> rchar <span class="keyword">not</span> <span class="keyword">in</span> window <span class="keyword">else</span> window[rchar] + <span class="number">1</span> </span><br><span class="line">            <span class="keyword">if</span> window[rchar] == need[rchar]: </span><br><span class="line">                valid += <span class="number">1</span> </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span> valid == <span class="built_in">len</span>(need): </span><br><span class="line">                <span class="comment"># 长度相等而且满足anagram条件，即为姐</span></span><br><span class="line">                <span class="keyword">if</span> right - left == <span class="built_in">len</span>(p): </span><br><span class="line">                    result.append(left) </span><br><span class="line">                lchar = s[left] </span><br><span class="line">                left += <span class="number">1</span> </span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> lchar <span class="keyword">in</span> window <span class="keyword">and</span> window[lchar] &gt; <span class="number">0</span>: </span><br><span class="line">                    <span class="keyword">if</span> window[lchar] == need[lchar]: </span><br><span class="line">                        valid -= <span class="number">1</span> </span><br><span class="line">                    window[lchar] -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result </span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithms/" rel="tag"># Algorithms</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/04/Using-Hexo-For-Blogging/" rel="prev" title="Using Hexo For Blogging">
+                  <i class="fa fa-chevron-left"></i> Using Hexo For Blogging
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/04/Development-Log/" rel="next" title="Development Log">
+                  Development Log <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zipiao (Chiev) Wan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
