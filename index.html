@@ -176,7 +176,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/07/Using-Pthread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/04/%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">最新的一篇文章</a>
+          <a href="/2021/05/07/Using-Pthread/" class="post-title-link" itemprop="url">Using Pthread</a>
         </h2>
 
         <div class="post-meta-container">
@@ -199,16 +199,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2021-05-04 23:46:32" itemprop="dateCreated datePublished" datetime="2021-05-04T23:46:32+08:00">2021-05-04</time>
+      <time title="Created: 2021-05-07 15:34:00 / Modified: 15:49:02" itemprop="dateCreated datePublished" datetime="2021-05-07T15:34:00+08:00">2021-05-07</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-26 23:48:38" itemprop="dateModified" datetime="2021-04-26T23:48:38+08:00">2021-04-26</time>
-      </span>
 
   
 </div>
@@ -220,7 +214,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="这是一篇文章"><a href="#这是一篇文章" class="headerlink" title="这是一篇文章"></a>这是一篇文章</h2><p><strong>奥术大师大</strong></p>
+          <h1 id="Using-Pthread-Mutex-Lock-in-C-CPP"><a href="#Using-Pthread-Mutex-Lock-in-C-CPP" class="headerlink" title="Using Pthread_Mutex_Lock in C/CPP"></a>Using Pthread_Mutex_Lock in C/CPP</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在多线程编程中，我们常常需要使用到互斥锁，而C/CPP中的<code>pthread.h</code>库中早已为我们封装好了互斥锁的API，可供开发者方便使用。</p>
+<p>锁的原理即是将一块控件通过0/1的状态位来表示当前是否被锁定。当一块空间被一个线程上锁时，另一个线程访问时会读取到状态位为1，因而进入等待。当线程使用完毕后，将会把状态符置0，表示释放。</p>
+<p>锁通常由CPU硬件层提供的特殊指令集逻辑完成CAS(Compare and Swap)操作的实现（如x86的CMPXCHG）。</p>
+<p>Recall： Java和C的++操作都不是CAS原子操作，而是先读取，增加，再写入，如果读取操作被interleave，则会造成Race Condition，使得结果不可预测。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>类似于针对Linux中的文件进行操作（通过File Descriptor），Pthread互斥锁的使用也伴随着初始化、使用和释放三个阶段。</p>
+<ul>
+<li>初始化 -&gt; <code>pthread_mutex_init(&amp;mutex, NULL)</code> </li>
+<li>使用 -&gt; <code>pthread_mutex_lock(&amp;mutex)</code> &amp; <code>pthread_mutex_unlock(&amp;mutex)</code>(使用的时候用lock与unlock包围代码块即可，类似于Java的<code>synchronized&#123;&#125;</code>语句) </li>
+<li>释放 -&gt; <code>pthread_mutex_destroy(&amp;mutex)</code></li>
+</ul>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt; </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LOOP_COUNT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOOP_COUNT 1000000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> incr_counter = <span class="number">0</span>;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">operation</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;LOOP_COUNT; i++)&#123;</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);    <span class="comment">// Lock the code below </span></span><br><span class="line">        incr_counter++; </span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);  <span class="comment">// Release Lock </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> p1, p2; </span><br><span class="line">    pthread_mutex_init(&amp;mutex, <span class="literal">NULL</span>);  <span class="comment">// Init Mutex Lock </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pthread_create(&amp;p1, <span class="literal">NULL</span>, &amp;operation, <span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1001</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pthread_create(&amp;p2, <span class="literal">NULL</span>, &amp;operation,  <span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1002</span>); </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pthread_join(p1, <span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">2001</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pthread_join(p2,<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">2002</span>); </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);  <span class="comment">// Release Mutex Lock </span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Incr Counter Value: %d\n&quot;</span>, incr_counter); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>

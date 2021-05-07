@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;example.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
+<meta name="description" content="Using Pthread_Mutex_Lock in C&#x2F;CPP前言在多线程编程中，我们常常需要使用到互斥锁，而C&#x2F;CPP中的pthread.h库中早已为我们封装好了互斥锁的API，可供开发者方便使用。 锁的原理即是将一块控件通过0&#x2F;1的状态位来表示当前是否被锁定。当一块空间被一个线程上锁时，另一个线程访问时会读取到状态位为1，因而进入等待。当线程使用完毕后，将会把状态符置0，表示释放。 锁通常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using Pthread">
+<meta property="og:url" content="http://example.com/2021/05/07/Using-Pthread/index.html">
+<meta property="og:site_name" content="域">
+<meta property="og:description" content="Using Pthread_Mutex_Lock in C&#x2F;CPP前言在多线程编程中，我们常常需要使用到互斥锁，而C&#x2F;CPP中的pthread.h库中早已为我们封装好了互斥锁的API，可供开发者方便使用。 锁的原理即是将一块控件通过0&#x2F;1的状态位来表示当前是否被锁定。当一块空间被一个线程上锁时，另一个线程访问时会读取到状态位为1，因而进入等待。当线程使用完毕后，将会把状态符置0，表示释放。 锁通常">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-07T07:34:00.000Z">
+<meta property="article:modified_time" content="2021-05-07T07:49:02.450Z">
+<meta property="article:author" content="Zipiao (Chiev) Wan">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/05/07/Using-Pthread/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;05&#x2F;07&#x2F;Using-Pthread&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;05&#x2F;07&#x2F;Using-Pthread&#x2F;&quot;,&quot;title&quot;:&quot;Using Pthread&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Using Pthread | 域</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">域</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">山僻景幽 云深境寂</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Using-Pthread-Mutex-Lock-in-C-CPP"><span class="nav-number">1.</span> <span class="nav-text">Using Pthread_Mutex_Lock in C&#x2F;CPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">1.3.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zipiao (Chiev) Wan</p>
+  <div class="site-description" itemprop="description">Chiev's Realm of Ideas</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Chiver" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Chiver" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/07/Using-Pthread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zipiao (Chiev) Wan">
+      <meta itemprop="description" content="Chiev's Realm of Ideas">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="域">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Using Pthread
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-05-07 15:34:00 / Modified: 15:49:02" itemprop="dateCreated datePublished" datetime="2021-05-07T15:34:00+08:00">2021-05-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Using-Pthread-Mutex-Lock-in-C-CPP"><a href="#Using-Pthread-Mutex-Lock-in-C-CPP" class="headerlink" title="Using Pthread_Mutex_Lock in C/CPP"></a>Using Pthread_Mutex_Lock in C/CPP</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在多线程编程中，我们常常需要使用到互斥锁，而C/CPP中的<code>pthread.h</code>库中早已为我们封装好了互斥锁的API，可供开发者方便使用。</p>
+<p>锁的原理即是将一块控件通过0/1的状态位来表示当前是否被锁定。当一块空间被一个线程上锁时，另一个线程访问时会读取到状态位为1，因而进入等待。当线程使用完毕后，将会把状态符置0，表示释放。</p>
+<p>锁通常由CPU硬件层提供的特殊指令集逻辑完成CAS(Compare and Swap)操作的实现（如x86的CMPXCHG）。</p>
+<p>Recall： Java和C的++操作都不是CAS原子操作，而是先读取，增加，再写入，如果读取操作被interleave，则会造成Race Condition，使得结果不可预测。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>类似于针对Linux中的文件进行操作（通过File Descriptor），Pthread互斥锁的使用也伴随着初始化、使用和释放三个阶段。</p>
+<ul>
+<li>初始化 -&gt; <code>pthread_mutex_init(&amp;mutex, NULL)</code> </li>
+<li>使用 -&gt; <code>pthread_mutex_lock(&amp;mutex)</code> &amp; <code>pthread_mutex_unlock(&amp;mutex)</code>(使用的时候用lock与unlock包围代码块即可，类似于Java的<code>synchronized&#123;&#125;</code>语句) </li>
+<li>释放 -&gt; <code>pthread_mutex_destroy(&amp;mutex)</code></li>
+</ul>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt; </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LOOP_COUNT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOOP_COUNT 1000000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> incr_counter = <span class="number">0</span>;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">operation</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;LOOP_COUNT; i++)&#123;</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);    <span class="comment">// Lock the code below </span></span><br><span class="line">        incr_counter++; </span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);  <span class="comment">// Release Lock </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> p1, p2; </span><br><span class="line">    pthread_mutex_init(&amp;mutex, <span class="literal">NULL</span>);  <span class="comment">// Init Mutex Lock </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pthread_create(&amp;p1, <span class="literal">NULL</span>, &amp;operation, <span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1001</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pthread_create(&amp;p2, <span class="literal">NULL</span>, &amp;operation,  <span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1002</span>); </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pthread_join(p1, <span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">2001</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pthread_join(p2,<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">2002</span>); </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);  <span class="comment">// Release Mutex Lock </span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Incr Counter Value: %d\n&quot;</span>, incr_counter); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/16/Philosophy-of-Entrepreneurship/" rel="prev" title="Philosophy of Entrepreneurship">
+                  <i class="fa fa-chevron-left"></i> Philosophy of Entrepreneurship
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zipiao (Chiev) Wan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
